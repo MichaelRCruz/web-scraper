@@ -1,13 +1,18 @@
 var casper = require('casper').create();
 
-var mcio = 'http://michaelcruz.io';
+var websites = ['http://michaelcruz.io', 'https://www.google.com/', 'https://github.com/'];
 
-casper.start(mcio, function() {
-    if (this.exists('div.splash')) {
-        this.echo('the heading exists');
-    } else [
-      this.echo('nada')
-    ]
-});
+function scraper() {
+  for (var i = 0; i < websites.length; i++) {
+    casper.start(i, function() {
+        if (this.exists('div.splash')) {
+            this.echo('the heading exists');
+        } else {
+          this.echo('nada')
+        }
+    });
+    casper.run();
+  }
+}
 
-casper.run();
+scraper();
