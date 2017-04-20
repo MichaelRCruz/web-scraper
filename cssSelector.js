@@ -10,27 +10,26 @@ var websites = ['http://michaelcruz.io', 'https://www.google.com/', 'https://git
 //     }
 // });
 // casper.run();
-//
-// function scrape() {
-//
-// }
 
-function scrape(websites) {
+function scrape() {
   for (var i = 0; i < websites.length; i++) {
-    casper.waitFor(function check(websites) {
-      return casper.start(websites[i], function() {
+    casper.start(websites[i], function() {
+      casper.waitFor(function check() {
+          return this.evaluate(function() {
+              return document.querySelectorAll('html');
+          });
+      }, function then() {    // step to execute when check() is ok
+            if (this.exists('div.splash')) {
+              this.echo('the heading exists');
+            } else {
+                this.echo('nada')
+            }
+      }, function timeout() { // step to execute if check has failed
+          this.echo("I can't haz my info.").exit();
       });
-      casper.run();
-    }, function then() {    // step to execute when check() is ok
-      if (this.exists('div.splash')) {
-        this.echo('the div exists');
-      } else {
-          this.echo('nada')
-      }
-    }, function timeout() { // step to execute if check has failed
-        this.echo("I can't haz my info.").exit();
     });
+    casper.run();  
   }
-};
+}
 
-scrape(websites);
+scrape();
