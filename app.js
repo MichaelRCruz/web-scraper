@@ -1,6 +1,8 @@
-var Spooky = require('spooky');
 const redis = require("redis");
 const client = redis.createClient();
+const Spooky = require('spooky');
+var x = 'spooky';
+var test;
 
 var spooky = new Spooky({
   casper: {
@@ -16,7 +18,6 @@ var spooky = new Spooky({
   beginScrape();
 });
 
-
 spooky.on('error', function (e, stack) {
     console.error(e);
 
@@ -27,6 +28,7 @@ spooky.on('error', function (e, stack) {
 
 function scrape(website) {
   spooky.start(website, function() {
+    console.log(website);
     this.waitFor(function check() {
         return this.evaluate(function() {
             return document.querySelectorAll('html');
@@ -49,6 +51,7 @@ function beginScrape() {
   client.spop('websites', function(err, website) {
     console.log(err);
     console.log(website);
+    var test = website;
     if (website == null) {
       process.exit();
       return
@@ -57,6 +60,8 @@ function beginScrape() {
     }
   });
 };
+
+console.log('Redis data: ', test);
 
 function next() {
   beginScrape();
