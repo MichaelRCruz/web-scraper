@@ -16,9 +16,18 @@ var spooky = new Spooky({
   beginScrape();
 });
 
+
+spooky.on('error', function (e, stack) {
+    console.error(e);
+
+    if (stack) {
+        console.log(stack);
+    }
+});
+
 function scrape(website) {
   spooky.start(website, function() {
-    spooky.waitFor(function check() {
+    this.waitFor(function check() {
         return this.evaluate(function() {
             return document.querySelectorAll('html');
         });
@@ -26,7 +35,7 @@ function scrape(website) {
           if (this.exists('div.splash')) {
             this.echo('the element exists');
           } else {
-              this.echo('no element: ' + websites[0]);
+              this.echo('no element: ' + website);
           }
           next();
     }, function timeout() { // step to execute if check has failed
@@ -50,6 +59,5 @@ function beginScrape() {
 };
 
 function next() {
-  websites.shift();
   beginScrape();
 }
