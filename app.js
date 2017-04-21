@@ -1,6 +1,5 @@
 var casper = require('casper').create();
 
-var websites = ['http://michaelcruz.io', 'https://www.google.com/', 'https://github.com/', 'http://michaelcruz.io', 'http://michaelcruz.io', 'https://vuejs.org/'];
 var repairCount = 0;
 
 function scrape() {
