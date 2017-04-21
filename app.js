@@ -1,10 +1,24 @@
-var casper = require('casper').create();
+var Spooky = require('spooky');
+const redis = require("redis");
+const client = redis.createClient();
 
-var repairCount = 0;
+var spooky = new Spooky({
+  casper: {
+    logLevel: 'debug',
+    verbose: true,
+  }
+}, function(err) {
+  if (err) {
+    e = new Error('Failed to initialize SpookyJS');
+    e.details = err;
+    throw e;
+  }
+  beginScrape();
+});
 
-function scrape() {
-  casper.start(websites[0], function() {
-    casper.waitFor(function check() {
+function scrape(website) {
+  spooky.start(website, function() {
+    spooky.waitFor(function check() {
         return this.evaluate(function() {
             return document.querySelectorAll('html');
         });
@@ -12,7 +26,6 @@ function scrape() {
           if (this.exists('div.splash')) {
             this.echo('the element exists');
           } else {
-              repairCount++;
               this.echo('no element: ' + websites[0]);
           }
           next();
@@ -20,20 +33,23 @@ function scrape() {
           this.echo("I can't haz my info.").exit();
     });
   });
-  casper.run();
+  spooky.run();
 };
 
 function beginScrape() {
-  if (websites.length == 0) {
-    console.log(repairCount + ' websites in need of repair.');
-    return
-  }
-  scrape();
+  client.spop('websites', function(err, website) {
+    console.log(err);
+    console.log(website);
+    if (website == null) {
+      process.exit();
+      return
+    } else {
+      scrape(website);
+    }
+  });
 };
 
 function next() {
   websites.shift();
   beginScrape();
 }
-
-beginScrape();
