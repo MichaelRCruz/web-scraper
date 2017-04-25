@@ -15,6 +15,7 @@ var spooky = new Spooky({
     e.details = err;
     throw e;
   }
+
   beginScrape();
 });
 
@@ -27,8 +28,10 @@ spooky.on('error', function (e, stack) {
 });
 
 function scrape(website) {
-  spooky.start(website, function() {
-    console.log(website);
+  console.log('scrape', website);
+  spooky.start(website)
+  spooky.then(function(website) {
+    console.log('spooky.start: website is', website);
     this.waitFor(function check() {
         return this.evaluate(function() {
             return document.querySelectorAll('html');
@@ -44,14 +47,15 @@ function scrape(website) {
           this.echo("I can't haz my info.").exit();
     });
   });
+
   spooky.run();
 };
 
 function beginScrape() {
   client.spop('websites', function(err, website) {
-    console.log(err);
-    console.log(website);
-    var test = website;
+    console.log('err', err);
+    console.log('website', website);
+    test = website;
     if (website == null) {
       process.exit();
       return
@@ -61,8 +65,9 @@ function beginScrape() {
   });
 };
 
-console.log('Redis data: ', test);
 
 function next() {
   beginScrape();
 }
+
+console.log('Redis data: ', test);
