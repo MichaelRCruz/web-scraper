@@ -4,6 +4,7 @@ import requests
 
 r = redis.Redis()
 
+# poses as a device to get around websites that block any bots
 USER_AGENT = 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405'
 
 status = {}
@@ -24,6 +25,7 @@ while True:
 
     soup = BeautifulSoup(resp.text, 'html.parser')
 
+    # these two for-loops are the the obvious cases to scrape for, but others may exist
     for link in soup.find_all('a'):
         if '.chownow.com' in link.get('href', ''):
             status[url] = 'SUCCESS'
@@ -35,6 +37,7 @@ while True:
 
 print 'statuses:', status
 
+# opens and writes the broken websites to repairs.txt
 target = open('repairs.txt', 'w')
 
 for key in status:
