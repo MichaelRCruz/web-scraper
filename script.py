@@ -40,7 +40,6 @@ print 'statuses:', status
 
 # opens and writes the broken websites to repairs.PID.txt
 repair_file = 'repairs.%s.txt' % os.getpid()
-# target = open(repair_file, 'w')
 
 with open(repair_file, 'w') as fp:
     for key, val in status.iteritems():
