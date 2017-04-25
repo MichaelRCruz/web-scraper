@@ -9,4 +9,4 @@ with open('websites.txt', 'r') as fp:
 
 num_lines = sum(1 for line in open('websites.txt'))
 
-print num_lines, "websites added to Redis key, 'websites'."
+print num_lines, "websites added to Redis key: 'websites'."

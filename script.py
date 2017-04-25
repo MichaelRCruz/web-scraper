@@ -34,3 +34,11 @@ while True:
             break
 
 print 'statuses:', status
+
+target = open('repairs.txt', 'w')
+
+for key in status:
+    if status[key] == "FAILED":
+        target.write(key + '\n')
+
+target.close()
