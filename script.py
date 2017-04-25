@@ -29,7 +29,7 @@ while True:
             status[url] = 'SUCCESS'
             break
     for script in soup.find_all('script'):
-        if 'iframe' in script.text:
+        if 'chownow.com/static/js/iframe.js' in script.text:
             status[url] = 'SUCCESS'
             break
 
