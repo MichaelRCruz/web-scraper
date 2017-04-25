@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import redis
 import requests
+import os
 
 r = redis.Redis()
 
@@ -37,11 +38,11 @@ while True:
 
 print 'statuses:', status
 
-# opens and writes the broken websites to repairs.txt
-target = open('repairs.txt', 'w')
+# opens and writes the broken websites to repairs.PID.txt
+repair_file = 'repairs.%s.txt' % os.getpid()
+target = open(repair_file, 'w')
 
-for key in status:
-    if status[key] == "FAILED":
-        target.write(key + '\n')
-
-target.close()
+with open(repair_file, 'w') as fp:
+    for key, val in status.iteritems():
+        if val == 'FAILED':
+            fp.write(key + '\n')
