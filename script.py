@@ -11,7 +11,8 @@ driver.set_window_size(1024, 768)
 
 r = redis.Redis()
 
-# poses as a device to get around websites that block any bots
+# poses as a device to get around websites that block any bots. I'm not sure if
+# there is any advantage in using a different device, but worth looing in to.
 USER_AGENT = 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405'
 
 status = {}
@@ -58,6 +59,7 @@ while True:
             status[url] = 'SUCCESS'
             break
 
+    # begin check for dynamically rendered content
     if status[url] == 'SUCCESS':
         continue
     print("falling back to phantomjs for ", url)
@@ -99,7 +101,6 @@ while True:
         print("page navigated to chownow")
         status[url] = 'SUCCESS'
         continue
-
     elif len(driver.window_handles) > 1:
         print("looks like a popup")
         driver.switch_to.window(driver.window_handles[-1])
@@ -107,7 +108,6 @@ while True:
             print("chownow opened in a new window")
             status[url] = 'SUCCESS'
             continue
-
     else:
         try:
             iframe = driver.find_element_by_xpath("//iframe[contains(@src, 'chownow')]")

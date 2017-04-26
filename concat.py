@@ -10,6 +10,6 @@ for file in glob.glob('repairs.*.txt'):
         line = line.strip()
         target.write(line + '\n')
 
-# removes temp files
+# removes temp files when no longer needed
 for file in glob.glob('repairs.*.txt'):
     os.remove(file)
