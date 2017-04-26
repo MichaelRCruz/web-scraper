@@ -43,6 +43,10 @@ while True:
         if 'chownow' in link.get('src', ''):
             status[url] = 'SUCCESS'
             break
+    for link in soup.find_all('iframe'):
+        if 'chownow' in link.get('src', ''):
+            status[url] = 'SUCCESS'
+            break
     for script in soup.find_all('script'):
         if 'chownow.com/static/js/iframe.js' in script.text:
             status[url] = 'SUCCESS'
