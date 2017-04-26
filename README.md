@@ -4,7 +4,7 @@ This is a web-scraping application designed to detect content on a web page. The
 
 ### Approach Taken
 
-After a little thought on the approach to this application, I realized the most important feature was scalability. The code needs to be able to handle a growing list of websites. Then came the question for handling input and output. Upon my initial attempt, I naively considering using a very very large array (list) to hold the list of websites (please don't laugh). Then I discovered Redis. Redis is used her as a store whereby a "worker" script randomly draws from the set (no duplicates). There are ten of these worker scripts running concurrently and then writing information (URLs) to a temporary .txt file. Python concatenates these temporary files as one output and then finally deletes the unnecessary .txt files.
+After a little thought on the approach to this application, I realized the most important feature was scalability. The code needs to be able to handle a growing list of websites. Then came the question for handling input and output. Upon my initial attempt, I naively considering using a very very large array (list) to hold the list of websites. Then I discovered Redis. Redis is used here as a store whereby a "worker" script randomly draws from the set (no duplicates). There are ten of these worker scripts running concurrently and then writing information (URLs) to a temporary .txt file. Python concatenates these temporary files as one output and then finally deletes the unnecessary .txt files.
 
 As far as what to scrape for was another interesting adventure. The most challenging of which became scraping dynamically rendered content. PhantomJS took care of this with the help of Selenium. These current methods of scraping will very likely need to be refactored as I am not sure I'm aware of every single edge-case.
 
@@ -64,13 +64,21 @@ http://stackoverflow.com/
 ...
 ```
 
-While we are here, I should note that after the application is finished running, our broken websites will also be listed in the above format, but in to a different file of course. This list can be found in ```repairs.txt```. It will be empty when you first clone the repository. ```repairs.txt``` will be overwritten with new data upon any subsequent execution.
+While we are here, I should note that after the application is finished running, our broken websites will also be listed in the above format, but in to a different file. This list can be found in ```repairs.txt```. It will be empty when you first clone the repository, but ```repairs.txt``` will be overwritten with new data upon any subsequent execution of the program.
 
-That should do it! I hope you are excited as I am because coding is fun.
+That should do it! I hope you are as excited as I am because coding is fun.
 
-### One Last thing!
+### I almost forgot!
 
-To actually run our application, just execute the follow command.
+To actually run our application, just execute the following command.
 ```
 sh run_scrape.sh
 ```
+
+### Technologies Used
+
+* Python - [python.org](https://www.python.org/)
+* BeautifulSoup - [crummy.com](https://www.crummy.com/software/BeautifulSoup/)
+* Redis - [redis.io](https://redis.io/)
+* PhantomJS - [phantomjs.org](http://phantomjs.org/)
+* Selenium Webdriver - [seleniumhq.org](http://www.seleniumhq.org/docs/03_webdriver.jsp)
