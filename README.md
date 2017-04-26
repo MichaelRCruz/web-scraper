@@ -68,9 +68,9 @@ While we are here, I should note that after the application is finished running,
 
 That should do it! I hope you are excited as I am because coding is fun.
 
-###### One Last thing!
+### One Last thing!
 
-To actually run our application run the follow after you have cd'd into the repository.
+To actually run our application, just run the follow command.
 ```
 sh run_scrape.sh
 ```
