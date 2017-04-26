@@ -1,6 +1,6 @@
 # Web Scraper
 
-This is a web-scraping application designed to detect the existence of specified content on a web page. The application is capable of detecting both static and dynamically rendered content. There is a considerable and significant time factor involved. For example, I'm estimating five hours for one machine to work through a list of 35,000 websites. Future development will attempt to address this issue.
+This is a web-scraping application designed to detect specified content on a web page. The application is built to detect both statically and dynamically rendered content. There is a considerable and significant time factor involved. For example, I'm estimating five hours for one machine to work through a list of 35,000 websites. Future development will attempt to address this issue. An immediate solution is to run the application on multiple machines pulling from the same Redis store. Also, the number of concurrently running "worker" scripts can be increased, but their effectiveness is contingent on your machine's specifications.
 
 ### Approach Taken
 

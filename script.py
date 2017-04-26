@@ -32,7 +32,7 @@ while True:
 
     soup = BeautifulSoup(resp.text, 'html.parser')
 
-    # these two for-loops are the the obvious cases to scrape for, but others may exist
+    # these for-loops are the the obvious cases to scrape for, but others may exist
     for link in soup.find_all('a'):
         if '.chownow' in link.get('href', ''):
             status[url] = 'SUCCESS'
