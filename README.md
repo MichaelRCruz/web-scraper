@@ -29,6 +29,7 @@ Execute the following commands in your terminal
 1. Clone or fork this repository
 ```
 git clone https://github.com/MichaelRCruz/web-scraper
+cd web-scraper
 ```
 2. We will be using Redis. Isn't that exciting! Run this command to install the Redis Server.
 ```
