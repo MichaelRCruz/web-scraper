@@ -28,7 +28,19 @@ while True:
 
     # these two for-loops are the the obvious cases to scrape for, but others may exist
     for link in soup.find_all('a'):
-        if '.chownow.com' in link.get('href', ''):
+        if '.chownow' in link.get('href', ''):
+            status[url] = 'SUCCESS'
+            break
+    for link in soup.find_all('a'):
+        if 'chownow' in link.get('id', ''):
+            status[url] = 'SUCCESS'
+            break
+    for link in soup.find_all('script'):
+        if '.chow.js' in link.get('src', ''):
+            status[url] = 'SUCCESS'
+            break
+    for link in soup.find_all('script'):
+        if 'chownow' in link.get('src', ''):
             status[url] = 'SUCCESS'
             break
     for script in soup.find_all('script'):
