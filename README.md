@@ -72,7 +72,7 @@ That should do it! I hope you are as excited as I am because coding is fun.
 
 To actually run our application, just execute the following command.
 ```
-sh run_scrape.sh
+sh run_scraper.sh
 ```
 
 ### Technologies Used
